@@ -40,8 +40,8 @@ class ViewPagerAdapter(private val activity: FragmentActivity) :
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: VideoCategoriesViewHolder, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: VideoCategoriesViewHolder, positionX: Int) {
+        holder.bind(items[positionX], positionX)
     }
 
     inner class VideoCategoriesViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -49,12 +49,12 @@ class ViewPagerAdapter(private val activity: FragmentActivity) :
         private val playerController = PlayerController(activity.applicationContext)
         private val adapter = FalconColumnAdapter(activity, playerController)
 
-        fun bind(videos: List<Video>) {
+        fun bind(videos: List<Video>, positionX: Int) {
             adapter.setVideos(videos)
             columnViewPager.adapter = adapter
             columnViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrollStateChanged(state: Int) {
-//                    TODO("Not yet implemented")
+                    Log.v("TAG", "onPageScrollStateChanged")
                 }
 
                 override fun onPageScrolled(
@@ -62,14 +62,11 @@ class ViewPagerAdapter(private val activity: FragmentActivity) :
                     positionOffset: Float,
                     positionOffsetPixels: Int
                 ) {
-//                    TODO("Not yet implemented")
+                    Log.v("TAG", "onPageScrolled")
                 }
 
-                override fun onPageSelected(position: Int) {
+                override fun onPageSelected(positionY: Int) {
                     Log.v("TAG", "onPageSelected")
-                    val video = videos[position]
-//                    playerController.pausePreviousVideo()
-                    playerController.play()
                 }
 
             })

@@ -40,6 +40,5 @@ class FalconColumnAdapter(private val activity: FragmentActivity, val playerCont
     override fun onViewRecycled(holder: VideoViewHolder) {
         super.onViewRecycled(holder)
         holder.videoView.releasePlayer()
-
     }
 }

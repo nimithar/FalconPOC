@@ -54,18 +54,12 @@ class PlayerController(private val context: Context): Player.EventListener {
         }
     }
 
-    fun play() {
-        currentPlayer?.playWhenReady = true
+    fun play(player: SimpleExoPlayer) {
+        player.playWhenReady = true
     }
 
-    fun pause() {
-        currentPlayer?.playWhenReady = false
-    }
-
-    fun pausePlayerWithVideo(video: Video) {
-        if (videoPlayerMap.containsKey(video.id)) {
-            videoPlayerMap[video.id]?.playWhenReady = false
-        }
+    fun pause(player: SimpleExoPlayer) {
+        player.playWhenReady = false
     }
 }
 

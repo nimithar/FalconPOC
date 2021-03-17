@@ -35,6 +35,24 @@ class VideoView @JvmOverloads constructor(
         ))
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        play()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        pause()
+    }
+
+    fun pause() {
+        playerController.pause(playerView.player as SimpleExoPlayer)
+    }
+
+    fun play() {
+        playerController.play(playerView.player as SimpleExoPlayer)
+    }
+
     fun releasePlayer() {
         playerController.releasePlayer(video.id, playerView.player as SimpleExoPlayer)
         playerView.player = null
