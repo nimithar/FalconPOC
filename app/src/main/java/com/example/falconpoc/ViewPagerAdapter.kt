@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 
 class ViewPagerAdapter(private val activity: FragmentActivity) :
     RecyclerView.Adapter<ViewPagerAdapter.VideoCategoriesViewHolder>() {
-    private val items = mutableListOf<List<VideoView>>()
+    private val items = mutableListOf<List<Video>>()
     private val categoriesMap = mutableMapOf<Int, String>()
 
-    fun setItems(map: Map<String, List<VideoView>>) {
+    fun setItems(map: Map<String, List<Video>>) {
         items.clear()
         categoriesMap.clear()
         var i = 0
@@ -50,7 +49,7 @@ class ViewPagerAdapter(private val activity: FragmentActivity) :
         private val playerController = PlayerController(activity.applicationContext)
         private val adapter = FalconColumnAdapter(activity, playerController)
 
-        fun bind(videos: List<VideoView>) {
+        fun bind(videos: List<Video>) {
             adapter.setVideos(videos)
             columnViewPager.adapter = adapter
             columnViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -69,14 +68,8 @@ class ViewPagerAdapter(private val activity: FragmentActivity) :
                 override fun onPageSelected(position: Int) {
                     Log.v("TAG", "onPageSelected")
                     val video = videos[position]
-                    playerController.prepareDashMedia(VideoMetaData(
-                        videoDashUrl = video.url,
-                        startPositionMillis = 0,
-                        progressInMillis = 0,
-                        videoId = "1",
-                        durationInMillis = 6000,
-                        thumbnailUrl = ""
-                    ))
+//                    playerController.pausePreviousVideo()
+                    playerController.play()
                 }
 
             })
